@@ -13,9 +13,9 @@ def valor_mais_redimento(valor, percentual):
 
 def mostra_grafico(periodos, acumulados):
     plt.plot(periodos, acumulados)
-    plt.xlabel("Períodos")
-    plt.ylabel("Valor acumulado, em reais")
-    plt.title("Projeção juros compostos")
+    plt.xlabel("Períodos/meses")
+    plt.ylabel("Valor acumulado, R$")
+    plt.title("Projeção de juros compostos aos rendimentos")
     plt.show()
 
 def projecao(inicio, rendimento, aporte, periodos):
