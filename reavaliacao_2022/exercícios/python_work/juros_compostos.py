@@ -26,11 +26,11 @@ def projecao(inicio, rendimento, aporte, periodos):
         lista_periodos = []
         lista_acumulados = []
 
-        for MESES in range(periodos):
-            lista_periodos.append(MESES + 1)
+        for meses in range(periodos):
+            lista_periodos.append(meses + 1)
             acumulado = valor_mais_redimento(acumulado, rendimento) + aporte
             lista_acumulados.append(acumulado)
-            print("Após ", MESES + 1, " períodos(s), o montante será de R$", round(acumulado, 2), ".")
+            print("Após ", meses + 1, " períodos(s), o montante será de R$", round(acumulado, 2), ".")
 
         mostra_grafico(lista_periodos, lista_acumulados)
 
