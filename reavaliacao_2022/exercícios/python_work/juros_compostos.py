@@ -1,6 +1,6 @@
 import matplotlib
 matplotlib.use('TkAgg')
-import matplotlibe.pyplot as grafico
+import matplotlib.pyplot as grafico
 
 def valor_mais_redimento(valor, percentual):
     return valor + (valor * percentual / 100)
