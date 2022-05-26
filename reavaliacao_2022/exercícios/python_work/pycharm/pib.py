@@ -1,9 +1,11 @@
+import os
 
 
 def ler_csv():
+    global cabecalho
     arquivocsv = "Assessmant_PIBs.csv"
     if os.path.exists(arquivocsv):
-        paises_pibs_anos_txt = open(arquivocsv, "r",encoding="utf-8")
+        paises_pibs_anos_txt = open(arquivocsv, "r", encoding="utf-8")
         paises_pibs_anos = paises_pibs_anos_txt.read().split("\n")
         paises_pibs_anos_txt.close()
         paises_pibs = []
@@ -13,16 +15,16 @@ def ler_csv():
                 cabecalho = paises_pibs_anos[linha].split(",")
             else:
                 paises_pibs.append(paises_pibs_anos[linha].split(","))
-
         return [cabecalho, paises_pibs]
     else:
-        print(f"O arquivo {arquivocsv} não existe no diretório")
-
-import os
+        print(f"!!!O arquivo {arquivocsv} não existe no diretório!!!")
+        print(f"Por favor, verifique com o desenvolvidor se a base de dados está disponível para consulta.")
+        exit()
 
 
 def verificar_pais_escolhido(escolha, lista):
     pais_valido = False
+    retorno = False
     for linha in range(len(lista)):
         if lista[linha][0].lower() == escolha.lower():
             pais_valido = linha
@@ -43,8 +45,10 @@ def consultar_pib(cabecalho_anos, listas_paises):
     while linha_pais == False:
         pais_escolhido = input("Informe o país: ")
         linha_pais = verificar_pais_escolhido(pais_escolhido, listas_paises)
-        if linha_pais[0] == False:
-            print("País inexistente.")
+        if linha_pais[0] != False:
+            continue
+        print("<|||País não consta na base de dados.|||>")
+        return linha_pais
 
     coluna_ano = False
     while coluna_ano == False:
@@ -53,7 +57,8 @@ def consultar_pib(cabecalho_anos, listas_paises):
         if coluna_ano == False:
             print("Ano não disponível.")
 
-    print(f"PIB {listas_paises[linha_pais[1]][0]} em {cabecalho_anos[coluna_ano]}: US$ {listas_paises[linha_pais[1]][coluna_ano]} trilhões.", sep="")
+    print(f"\nPIB {listas_paises[linha_pais[1]][0]} em {cabecalho_anos[coluna_ano]}: US$ {listas_paises[linha_pais[1]][coluna_ano]} trilhões.\n",
+        sep="")
 
 
 def variacao_pib(listas_paises):
@@ -82,11 +87,14 @@ def grafico_pais(pais, cabecalho_anos, listas_paises):
 def grafico(cabecalho_anos, listas_paises):
     linha_pais = False
     while linha_pais == False:
-        pais_escolhido = input("Qual o país a ser consultado?: ")
+        pais_escolhido = input("Qual o país a ser consultado? :")
         linha_pais = verificar_pais_escolhido(pais_escolhido, listas_paises)
-        if linha_pais[0] == False:
-            print("País não consta na base de dados.")
+        if not linha_pais[0]:
+            print("\n<|||País não consta na base de dados.|||>\n")
+            return linha_pais
+
     grafico_pais(linha_pais[1], cabecalho_anos, listas_paises)
+
 
 
 retorno_csv = ler_csv()
@@ -98,11 +106,11 @@ opcao = 0
 
 # Menu de opções
 while opcao != 5:
-    print("1 - CONSULTAR PIB POR PAÍS")
+    print("\n1 - CONSULTAR PIB POR PAÍS")
     print("2 - VARIAÇÃO DO PIB (%)")
     print("3 - EVOLUÇÃO DO PIB (%)")
-    print("5 - SAIR")
-    opcao = int(input())
+    print("5 - SAIR\n")
+    opcao = int(input("Esccolha as opções de 1 a 5: "))
 
     if opcao == 1:
         consultar_pib(topo_cabecalho_anos, lista_listas_paises)
