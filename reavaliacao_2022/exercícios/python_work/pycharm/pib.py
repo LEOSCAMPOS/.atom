@@ -105,12 +105,12 @@ lista_listas_paises = retorno_csv[1]
 opcao = 0
 
 # Menu de opções
-while opcao != 5:
+while opcao != 4:
     print("\n1 - CONSULTAR PIB POR PAÍS")
     print("2 - VARIAÇÃO DO PIB (%)")
     print("3 - EVOLUÇÃO DO PIB (%)")
-    print("5 - SAIR\n")
-    opcao = int(input("Esccolha as opções de 1 a 5: "))
+    print("4 - SAIR\n")
+    opcao = int(input("Esccolha as opções de 1 a 4: "))
 
     if opcao == 1:
         consultar_pib(topo_cabecalho_anos, lista_listas_paises)
